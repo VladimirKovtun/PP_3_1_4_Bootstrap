@@ -75,14 +75,6 @@ public class UserDto {
         this.password = password;
     }
 
-    public String getConfirm() {
-        return confirm;
-    }
-
-    public void setConfirm(String confirm) {
-        this.confirm = confirm;
-    }
-
     public int getAge() {
         return age;
     }

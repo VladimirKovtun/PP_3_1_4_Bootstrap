@@ -12,13 +12,13 @@ import ru.kata.services.UserService;
 import java.security.Principal;
 
 @Controller
-@RequestMapping("/admin")
-public class AdminController {
+@RequestMapping("/main")
+public class MainController {
     private final RoleService roleService;
     private final UserService userService;
 
     @Autowired
-    public AdminController(RoleService roleService, UserService userService) {
+    public MainController(RoleService roleService, UserService userService) {
         this.roleService = roleService;
         this.userService = userService;
     }
@@ -28,24 +28,24 @@ public class AdminController {
         model.addAttribute("usersList", userService.showAllUsers());
         model.addAttribute("allRoles", roleService.findAllRoles());
         model.addAttribute("currentUser", userService.findByEmail(principal.getName()).get());
-        return "admin_page";
+        return "main_page";
     }
 
     @PostMapping()
     public String registerUser(@ModelAttribute("userForReg") UserDto userForReg) {
         userService.addUser(UserDto.toUser(userForReg));
-        return "redirect:/admin";
+        return "redirect:/main";
     }
 
     @PatchMapping("/{id}")
     public String updateUser(@ModelAttribute("user") UserDto user) {
         userService.editUser(UserDto.toUser(user));
-        return "redirect:/admin";
+        return "redirect:/main";
     }
 
     @DeleteMapping("/{id}")
     public String removeUser(@PathVariable("id") Long id) {
         userService.removeUser(id);
-        return "redirect:/admin";
+        return "redirect:/main";
     }
 }
